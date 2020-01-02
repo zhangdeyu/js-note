@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="text-data">
+            <p>hello {{app}}</p>
+            <span>{{version}}</span>
+        </div>
+        <input type="text" v-model="input">
+        <div>input的值为{{input}}</div>
+        <span>obj1 {{ obj1.text }}</span>
+        <span>obj2 {{ obj2.text }}</span>
+    </div>
+</body>
+<script src="./vue.js"></script>
+<script>
+const app = new Vue({
+    el: '#app',
+    data() {
+        return {
+            app: 'world',
+            obj1: {
+                text: 'aaaaa'
+            },
+            obj2: {
+                text: 'ttttttt'
+            },
+            version: 'beta',
+            input: '1111',
+            a: 1,
+            b: 2
+        }
+    },
+    computed: {
+        hello() {
+            return this.a + this.b
+        },
+        world: {
+            get() {
+                return this.a + this.input
+            },
+            set() {
+
+            }
+        }
+    }
+})
+</script>
+</html>
