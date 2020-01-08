@@ -5,6 +5,17 @@
         - 如果是直接调用，那么则指向window
         - 对于obj.foo()的类型 this指向obj
     - 如果为new的情况，那么this 绑定在new出来的对象上
+
+- 判断规则
+    - 判断函数类型
+        - 箭头函数 向外层查找
+        - call apply bind 中 this指向第一个参数
+        - 普通函数
+            - 是否为直接调用还是对象调用
+                - foo() 指向window
+                - obj.foo() 指向obj
+            - new this指向new出来的实例上
+
 ```JAVASCRIPT
 var a = 'window a'
 function foo() {
