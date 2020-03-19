@@ -29,3 +29,16 @@ Object.keys(obj).forEach(k => {
 obj.name = 'newderek'
 
 console.log(obj.age)
+
+var arrayProto = Array.prototype;
+
+var arrayObj = Object.create(arrayProto);
+['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function(method) {
+    Object.defineProperty(arrayObj, method, {
+        value: function mutator() {
+            var originMethod = arrayProto[method]
+            var args = Array.from(arguments)
+            return originMethod.apply(this, args)
+        }
+    })
+})
