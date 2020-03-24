@@ -42,3 +42,24 @@ var arrayObj = Object.create(arrayProto);
         }
     })
 })
+
+
+// var arrayProto = Array.prototype;
+// var arrayObj = Object.create(arrayProto);
+// [
+//     'push',
+//     'pop',
+//     'shift',
+//     'unshift',
+//     'reverse',
+//     'sort',
+//     'splice'
+// ].forEach(function(method) {
+//    Object.defineProperty(arrayObj, method, {
+//        value: function() {
+//            var originMethod = arrayProto[method];
+//            var args = [].slice.call(arguments);
+//            return originMethod.apply(this, arguments)
+//        }
+//    })
+// })
