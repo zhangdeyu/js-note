@@ -45,6 +45,16 @@ $ 结束
 // \d == [0-9] 匹配0-9的任意一个数字  相反的为 \D == [^0-9] 除去0-9意外的所有字符
 // \w == [0-9a-zA-Z_]
 
+// 前瞻匹配
+// exp(?=exp2) 查找exp2前面的exp
+// 后顾
+// (?=exp2)exp1 查找exp2后面的exp2
+
+// 负前瞻
+// exp1(?!exp2)查找后面不是exp2的exp1
+// 负后顾
+// (?!exp2)exp1 查找前面不是exp2的exp1
+
 // 银行卡正则匹配加空格
 
 // var bankNo = '6201222200003334567'
@@ -93,7 +103,10 @@ function isPhone(str) {
 console.log(isPhone('13297974566'))
 
 function formatMoney(str) {
-  return str.replace(/(?=(\B\d{3})+$)/g, ',');
+  return str.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 console.log(formatMoney('1000000000000'))
+
+
+// 18926589416
