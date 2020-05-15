@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+function defineReactive(obj, k) {
+    var value = obj[k];
+    Object.defineProperty(obj, k, {
+        configurable: true,
+        enumerable: true,
+        get: function() {
+            console.log('get');
+            return value;
+        },
+        set: function(newVal) {
+            if (newVal !== value) {
+                console.log('set')
+                value = newVal
+            }
+        }
+    })
+}
+
+
+var obj = {
+    name: 'Derek',
+    age: 20,
+    skills: ['js', 'html']
+}
+
+Object.keys(obj).forEach(k => {
+    defineReactive(obj, k)
+})
+
+obj.name = 'newderek'
+
+console.log(obj.age)
+
+obj.skills.push('1')
+
+
+const arrayProto = Array.prototype;
+const arrayMethods = Object.create(arrayProto);
+
+[
+    'push',
+    'pop',
+    'shift',
+    'unshift',
+    'splice',
+    'sort',
+    'reverse'
+].forEach((method) => {
+    Object.defineProperty(arrayMethods, method, {
+        value: function mutator() {
+            console.log('matator')
+            const originMethod = arrayProto[method];
+            let args = Array.from(arguments);
+            return originMethod.apply(this, args)
+        }
+    })
+})
+
+function changeArrayProto(target) {
+    target.__proto__ = arrayMethods;
+}
+
+changeArrayProto(obj.skills)
+
+obj.skills.push('111')
+</script>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<script>
+
+function observe(obj) {
+    if (typeof obj === 'object' && obj !== null) {
+        return new Observer(obj)
+    }
+}
+
+class Observer {
+    constructor(data) {
+        this.data = data;
+        this.walk(data)
+    }
+
+    walk(data) {
+        Object.keys(data).forEach((k) => {
+            this.convert(data, k, data[k])
+        })
+    }
+
+    convert(data, k, v) {
+        this.defineReactive(data, k, v);
+    }
+
+    defineReactive(obj, k, v) {
+        observe(v);
+        Object.defineProperty(obj, k, {
+            enumerable: true,
+            configurable: false,
+            get: function getter() {
+                console.log('get', k, v);
+                return v;
+            },
+            set: function setter(newVal) {
+                console.log('set', k, v, 'to', newVal)
+                if (newVal !== v) {
+                    v = newVal;
+                }
+            }
+        })
+    }
+}
+
+let uid = 0;
+class Dep {
+    constructor() {
+        this.uid = uid ++;
+        this.subs = [];
+    }
+
+    addSub(sub) {
+        this.subs.push(sub);
+    }
+
+    notify() {
+        this.subs.forEach((sub) => {
+            // sub.update()
+        })
+    }
+}
+
+Dep.target = null;
+
+</script>
+<body>
+    
+</body>
+</html>
